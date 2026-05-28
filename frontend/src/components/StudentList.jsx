@@ -5,19 +5,25 @@ function StudentList({ refresh, setEditStudent }) {
   const [students, setStudents] = useState([]);
   const [search, setSearch] = useState("");
 
+  const API_URL = "https://mern-student-management-c97t.onrender.com/api/students";
+
   const fetchStudents = async () => {
     try {
-      const response = await axios.get("https://mern-student-management-c97t.onrender.com/api/students");
-      setStudents(response.data);
+      const res = await axios.get(API_URL);
+      setStudents(res.data);
     } catch (error) {
       console.log(error);
       alert("Error fetching students");
     }
   };
 
-  const deleteStudent = async (id) => {
+  useEffect(() => {
+    fetchStudents();
+  }, [refresh]);
+
+  const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://mern-student-management-c97t.onrender.com/api/students/${id}`);
+      await axios.delete(`${API_URL}/${id}`);
       alert("Student deleted successfully");
       fetchStudents();
     } catch (error) {
@@ -26,70 +32,79 @@ function StudentList({ refresh, setEditStudent }) {
     }
   };
 
-  useEffect(() => {
-    fetchStudents();
-  }, [refresh]);
-
-  const filteredStudents = students.filter((student) => {
-    return (
-      student.name.toLowerCase().includes(search.toLowerCase()) ||
-      student.rollNumber.toLowerCase().includes(search.toLowerCase()) ||
-      student.email.toLowerCase().includes(search.toLowerCase()) ||
-      student.course.toLowerCase().includes(search.toLowerCase())
-    );
-  });
+  const filteredStudents = students.filter((student) =>
+    `${student.name} ${student.email} ${student.course}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
 
   return (
-    <div className="student-list">
-      <h2>All Students</h2>
+    <>
+      <div className="search-row">
+        <input
+          type="text"
+          placeholder="Search by name, email or course..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button className="clear-btn" onClick={() => setSearch("")}>
+          × Clear Search
+        </button>
+      </div>
 
-      <input
-        type="text"
-        placeholder="Search by name, roll number, email, or course"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      {search && <button onClick={() => setSearch("")}>Clear</button>}
-
-      {filteredStudents.length === 0 ? (
-        <p>No students found</p>
-      ) : (
-        <table border="1">
+      <div className="table-wrap">
+        <table>
           <thead>
             <tr>
+              <th>#</th>
+              <th>Photo</th>
               <th>Name</th>
-              <th>Roll Number</th>
               <th>Email</th>
-              <th>Phone</th>
               <th>Course</th>
-              <th>Year</th>
-              <th>Address</th>
+              <th>Age</th>
+              <th>Gender</th>
               <th>Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            {filteredStudents.map((student) => (
+            {filteredStudents.map((student, index) => (
               <tr key={student._id}>
-                <td>{student.name}</td>
-                <td>{student.rollNumber}</td>
-                <td>{student.email}</td>
-                <td>{student.phone}</td>
-                <td>{student.course}</td>
-                <td>{student.year}</td>
-                <td>{student.address}</td>
+                <td>{index + 1}</td>
                 <td>
-                  <button onClick={() => setEditStudent(student)}>Edit</button>
-                  <button onClick={() => deleteStudent(student._id)}>
-                    Delete
+                  <div className="photo-circle">
+                    {student.name?.charAt(0).toUpperCase()}
+                  </div>
+                </td>
+                <td>{student.name}</td>
+                <td>{student.email}</td>
+                <td>{student.course}</td>
+                <td>{student.age || student.year || "-"}</td>
+                <td>
+                  <span className={`gender ${student.gender?.toLowerCase() || "male"}`}>
+                    {student.gender || "Male"}
+                  </span>
+                </td>
+                <td>
+                  <button
+                    className="action-btn edit-btn"
+                    onClick={() => setEditStudent(student)}
+                  >
+                    ✎
+                  </button>
+                  <button
+                    className="action-btn delete-btn"
+                    onClick={() => handleDelete(student._id)}
+                  >
+                    🗑
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      )}
-    </div>
+      </div>
+    </>
   );
 }
 

@@ -10,6 +10,7 @@ function StudentForm({ refreshStudents, editStudent, setEditStudent }) {
     course: "",
     year: "",
     address: "",
+    gender:"",
   });
 
   useEffect(() => {
@@ -79,6 +80,15 @@ function StudentForm({ refreshStudents, editStudent, setEditStudent }) {
       <input name="phone" placeholder="Phone" value={student.phone} onChange={handleChange} />
       <input name="course" placeholder="Course" value={student.course} onChange={handleChange} />
       <input name="year" placeholder="Year" value={student.year} onChange={handleChange} />
+      <select
+          name="gender"
+          value={student.gender}
+          onChange={handleChange}
+        >
+          <option value="">Select Gender</option>
+           <option value="Male">Male</option>
+           <option value="Female">Female</option>
+        </select>
       <textarea name="address" placeholder="Address" value={student.address} onChange={handleChange}></textarea>
 
       <button type="submit">
