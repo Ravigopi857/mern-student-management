@@ -2,6 +2,11 @@
 
 A full-stack Student Management System built using MERN stack.
 
+## Live Demo
+
+Frontend Live Link: https://mern-student-management-sht7.vercel.app/
+Backend Live Link: https://mern-student-management-c97t.onrender.com
+
 ## Features
 
 - Add student
