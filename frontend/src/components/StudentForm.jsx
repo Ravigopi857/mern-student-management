@@ -52,12 +52,12 @@ function StudentForm({ refreshStudents, editStudent, setEditStudent }) {
     try {
       if (editStudent) {
         await axios.put(
-          `http://localhost:5000/api/students/${editStudent._id}`,
+          `https://mern-student-management-c97t.onrender.com/${editStudent._id}`,
           student
         );
         alert("Student updated successfully");
       } else {
-        await axios.post("http://localhost:5000/api/students", student);
+        await axios.post("https://mern-student-management-c97t.onrender.com", student);
         alert("Student added successfully");
       }
 
