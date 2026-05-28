@@ -7,7 +7,7 @@ function StudentList({ refresh, setEditStudent }) {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/students");
+      const response = await axios.get("https://mern-student-management-c97t.onrender.com/api/students");
       setStudents(response.data);
     } catch (error) {
       console.log(error);
@@ -17,7 +17,7 @@ function StudentList({ refresh, setEditStudent }) {
 
   const deleteStudent = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/students/${id}`);
+      await axios.delete(`https://mern-student-management-c97t.onrender.com/api/students/${id}`);
       alert("Student deleted successfully");
       fetchStudents();
     } catch (error) {
