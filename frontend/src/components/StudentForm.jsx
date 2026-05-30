@@ -10,20 +10,20 @@ function StudentForm({ refreshStudents, editStudent, setEditStudent }) {
     course: "",
     year: "",
     address: "",
-    gender:"",
   });
 
   useEffect(() => {
     if (editStudent) {
       setStudent({
-        name: editStudent.name,
-        rollNumber: editStudent.rollNumber,
-        email: editStudent.email,
-        phone: editStudent.phone,
-        course: editStudent.course,
-        year: editStudent.year,
-        address: editStudent.address,
-      });
+  name: editStudent.name,
+  rollNumber: editStudent.rollNumber,
+  email: editStudent.email,
+  phone: editStudent.phone,
+  course: editStudent.course,
+  year: editStudent.year,
+  address: editStudent.address,
+  gender: editStudent.gender,
+});;
     }
   }, [editStudent]);
 
@@ -36,19 +36,20 @@ function StudentForm({ refreshStudents, editStudent, setEditStudent }) {
 
   const clearForm = () => {
     setStudent({
-      name: "",
-      rollNumber: "",
-      email: "",
-      phone: "",
-      course: "",
-      year: "",
-      address: "",
-    });
+  name: "",
+  rollNumber: "",
+  email: "",
+  phone: "",
+  course: "",
+  year: "",
+  address: "",
+});
     setEditStudent(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
 
     try {
       if (editStudent) {
@@ -72,7 +73,9 @@ function StudentForm({ refreshStudents, editStudent, setEditStudent }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{editStudent ? "Edit Student" : "Add Student"}</h2>
+      <h2 className="form-title">
+  {editStudent ? "✏️ Edit Student" : "➕ Add Student"}
+</h2>
 
       <input name="name" placeholder="Name" value={student.name} onChange={handleChange} />
       <input name="rollNumber" placeholder="Roll Number" value={student.rollNumber} onChange={handleChange} />
@@ -80,20 +83,29 @@ function StudentForm({ refreshStudents, editStudent, setEditStudent }) {
       <input name="phone" placeholder="Phone" value={student.phone} onChange={handleChange} />
       <input name="course" placeholder="Course" value={student.course} onChange={handleChange} />
       <input name="year" placeholder="Year" value={student.year} onChange={handleChange} />
-      <select
-          name="gender"
-          value={student.gender}
-          onChange={handleChange}
-        >
-          <option value="">Select Gender</option>
-           <option value="Male">Male</option>
-           <option value="Female">Female</option>
-        </select>
-      <textarea name="address" placeholder="Address" value={student.address} onChange={handleChange}></textarea>
+      
+      <textarea
+  name="address"
+  placeholder="Address"
+  value={student.address}
+  onChange={handleChange}
+  style={{
+    gridColumn: "1 / span 2"
+  }}
+></textarea>
 
-      <button type="submit">
-        {editStudent ? "Update Student" : "Add Student"}
-      </button>
+      <button
+  type="submit"
+  style={{
+    gridColumn: "1 / span 2",
+    background: "#2563eb",
+    color: "#fff",
+    fontSize: "16px",
+    fontWeight: "600"
+  }}
+>
+  {editStudent ? "✏️ Update Student" : "➕ Add Student"}
+</button>
 
       {editStudent && (
         <button type="button" onClick={clearForm}>
