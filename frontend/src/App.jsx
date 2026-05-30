@@ -4,7 +4,7 @@ import StudentForm from "./components/StudentForm";
 import StudentList from "./components/StudentList";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
