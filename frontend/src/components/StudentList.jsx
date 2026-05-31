@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function StudentList({ refresh, setEditStudent }) {
+function StudentList({ refresh,refreshStudents, setEditStudent }) {
   const [students, setStudents] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -24,7 +24,9 @@ function StudentList({ refresh, setEditStudent }) {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
+      
       alert("Student deleted successfully");
+      refreshStudents()
       fetchStudents();
     } catch (error) {
       console.log(error);

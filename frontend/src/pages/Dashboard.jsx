@@ -314,6 +314,7 @@ const totalStudents = students.length;
 
                 <StudentList
   refresh={refresh}
+  refreshStudents={refreshStudents}
   setEditStudent={(student) => {
     setEditStudent(student);
     setActiveTab("add");
