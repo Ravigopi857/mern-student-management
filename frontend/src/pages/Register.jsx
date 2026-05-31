@@ -23,17 +23,13 @@ try {
     }
   );
 
-  alert("Registration Successful");
+  alert("✅ Account created successfully! Please login.");
   navigate("/login");
 } catch (error) {
   console.log(error);
   console.log(error.response);
 
-  alert(
-    JSON.stringify(
-      error.response?.data || error.message
-    )
-  );
+  alert("❌ Registration failed. Please try again.");
 }
 
 };

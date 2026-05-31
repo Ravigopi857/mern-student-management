@@ -32,7 +32,7 @@ function Login({onLogin}) {
   console.log("FULL ERROR:", error);
   console.log("RESPONSE:", error.response);
   console.log("DATA:", error.response?.data);
-  alert(JSON.stringify(error.response?.data));
+  alert("❌ Invalid email or password.");
 }
   };
 
