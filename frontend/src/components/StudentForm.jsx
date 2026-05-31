@@ -54,21 +54,30 @@ function StudentForm({ refreshStudents, editStudent, setEditStudent }) {
     try {
       if (editStudent) {
         await axios.put(
-          `https://mern-student-management-c97t.onrender.com/api/students/${editStudent._id}`,
-          student
+       `https://mern-student-management-2-9o4t.onrender.com/api/students/${editStudent._id}`,
+        student
         );
         alert("Student updated successfully");
       } else {
-        await axios.post("https://mern-student-management-c97t.onrender.com/api/students", student);
-        alert("Student added successfully");
+        await axios.post(
+         "https://mern-student-management-2-9o4t.onrender.com/api/students",
+          student
+);
       }
 
       clearForm();
       refreshStudents();
     } catch (error) {
-      alert("Error saving student");
-      console.log(error);
-    }
+  console.log("FULL ERROR:", error);
+  console.log("RESPONSE:", error.response);
+  console.log("DATA:", error.response?.data);
+
+  alert(
+    JSON.stringify(
+      error.response?.data || error.message
+    )
+  );
+}
   };
 
   return (

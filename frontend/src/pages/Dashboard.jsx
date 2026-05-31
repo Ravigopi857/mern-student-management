@@ -35,7 +35,7 @@ useEffect(() => {
     setRefresh(!refresh);
   };
   const API_URL =
-  "https://mern-student-management-c97t.onrender.com/api/students";
+  "https://mern-student-management-2-9o4t.onrender.com/api/students";
 
 const fetchStudents = async () => {
   try {
